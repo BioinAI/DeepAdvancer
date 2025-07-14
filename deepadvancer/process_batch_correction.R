@@ -12,7 +12,7 @@ process_batch_correction1 <- function(target_diseases, shared_diseases, secondar
     pull(source_dataset)
   
   if (length(valid_datasets) == 0) {
-    stop("没有符合条件的 valid_datasets，请检查输入数据或参数")
+    stop("No valid datasets found. Please check the input data or parameters.")
   }
   
   # Initialize corrected expression matrix
@@ -29,18 +29,16 @@ process_batch_correction1 <- function(target_diseases, shared_diseases, secondar
     # Select samples for the dataset
     selected_samples <- phenotype_data$source_dataset == dataset_id & phenotype_data$disease %in% all_diseases
     if (sum(selected_samples) <= 2) {
-      message(paste("Dataset", dataset_id, "样本不足，跳过"))
+      message(paste("Dataset", dataset_id, "has insufficient samples, skipping."))
       next
     }    
     
     expression_filtered <- expression_data[, selected_samples]
   
-    # 判断数据集中是否有行在所有样本中都相同
     identical_rows <- apply(expression_filtered, 1, function(row) all(row == row[1], na.rm = TRUE))
     
     if (any(identical_rows)) {
       #message(paste("Dataset", dataset_id, "contains rows with identical values. Replacing them with median values."))
-      # 替换相同行的表达值为中位数
       # median_values <- apply(expression_filtered[identical_rows, , drop = FALSE], 1, median, na.rm = TRUE)
       for (i in which(identical_rows)) {
         expression_filtered[i, ] <- 0
