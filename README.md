@@ -31,7 +31,7 @@ pip install deepadvancer
 ```python
 import deepadvancer
 
-expr_matrix, pheno_data = load_and_process_expression_data(
+expr_matrix, pheno_data = deepadvancer.load_and_process_expression_data(
     data_dir=data_path,
     output_dir=data_path ,
     gene_threshold_ratio=0.8,
@@ -46,7 +46,7 @@ expr_matrix, pheno_data = load_and_process_expression_data(
 
 ```python
 
-train_x, class_all, batch_labels, proportions_per_feature, expected_sigmatrix = run_logfc_analysis_and_generate_fc_array(
+train_x, class_all, batch_labels, proportions_per_feature, expected_sigmatrix = deepadvancer.run_logfc_analysis_and_generate_fc_array(
     sample_metadata=sample_metadata,
     expr_matrix=expr_matrix,
     output_path=data_path
@@ -56,7 +56,7 @@ train_x, class_all, batch_labels, proportions_per_feature, expected_sigmatrix = 
 ### 3. Train the Autoencoder Model
 
 ```python
-x_recon_expression_matrix, model = recon_training(
+x_recon_expression_matrix, model = deepadvancer.recon_training(
     expr_matrix=expr_matrix,
     train_x=train_x,
     class_all=class_all,
