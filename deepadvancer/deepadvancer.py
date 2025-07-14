@@ -1224,7 +1224,7 @@ def plot_pca_by_class(
     title="PCA of Expression Matrix",
     figsize=(12, 10),
     alpha=0.8,
-    save_path=None  # 新增参数：保存路径
+    save_path=None
 ):
     """
     Perform PCA on the expression matrix and visualize samples by class. 
